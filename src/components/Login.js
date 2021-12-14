@@ -1,12 +1,18 @@
 import React, {useEffect, useState}from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setToken } from './redux/token'
+import '../styles/Login.css'
 
 const Login = () => {
     const navigate = useNavigate()
 
+	const dispatch = useDispatch()
+
     const [user, setUser] = useState({})
 
-	const [loginRes, setLoginRes] = useState({})
+	const { token } = useSelector((state) => state.token)
+	
 
 	const handleChange = (e) => {
 		setUser({
@@ -27,18 +33,18 @@ const Login = () => {
                 password: user.password,
             }),
 		}).then(res => res.json())
-			.then(data => setLoginRes(data))
+			.then(data => dispatch(setToken(data)))
 			.catch(err => console.log(err))
     }
-	
-	useEffect(() => {
-		if (loginRes.success === true) {
+ 	useEffect(() => {
+		if (token.status === 'success') {
 			navigate('/blog-cms/posts')
 		}
-	}, [loginRes])
-
-    return (
-		<div className='login-container'>
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [token])
+    
+	return (
+		<div className='content-container login-container'>
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'

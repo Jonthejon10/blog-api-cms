@@ -1,14 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useEffect }from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Login from './components/Login'
 import Posts from './components/Posts'
+import Newpost from './components/Newpost'
+import Fullpost from './components/Fullpost'
+import './styles/App.css'
 
 const App = () => {
 
-  const [posts, setPosts] = useState([])
+	const [posts, setPosts] = useState([])
 
-  useEffect(() => {
+	useEffect(() => {
 		async function fetchData() {
 			try {
 				const res = await fetch('http://localhost:2000/api/posts')
@@ -19,8 +23,8 @@ const App = () => {
 			}
 		}
 		fetchData()
-  }, [])
-	
+	}, [])
+
   return (
 		<div className='container'>
 			<BrowserRouter basename='/'>
@@ -34,9 +38,27 @@ const App = () => {
 					<Route
 						exact
 						path='/blog-cms/posts'
-						element={<Posts posts={posts} />}
+					  element={<Posts posts={ posts }/>}
 					/>
-				</Routes>
+			  	</Routes>
+
+				<Routes>
+					<Route
+						exact
+						path='/blog-cms/posts/:id'
+					  element={<Fullpost/>}
+					/>
+			  	</Routes>
+
+				<Routes>
+					<Route
+						exact
+						path='/blog-cms/new-post'
+						element={<Newpost/>}
+					/>
+			  	</Routes>
+
+			  <Footer />
 			</BrowserRouter>
 		</div>
   )

@@ -1,0 +1,28 @@
+nav {
+  border-bottom: 1px solid #525252;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+nav ul {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+nav ul li {
+  padding: 20px;
+  cursor: pointer;
+}
+
+nav ul li:hover {
+  color: #525252;
+}
+/*# sourceMappingURL=Navbar.css.map */

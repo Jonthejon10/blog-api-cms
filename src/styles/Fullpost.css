@@ -1,0 +1,67 @@
+.fullpost-container {
+  padding-top: 10px;
+}
+
+.fullpost-container button {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #fff;
+}
+
+.fullpost-container button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.fullpost-container h1 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.fullpost-container h3 {
+  font-size: 1.8rem;
+}
+
+.fullpost-container p {
+  font-size: 1.2rem;
+}
+
+.fullpost-container .post-text {
+  font-size: 2rem;
+}
+
+.fullpost-container form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.fullpost-container form input {
+  color: #fff;
+  padding: 10px;
+  width: 300px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.fullpost-container form textarea {
+  color: #fff;
+  padding: 10px;
+  width: 300px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+/*# sourceMappingURL=Fullpost.css.map */

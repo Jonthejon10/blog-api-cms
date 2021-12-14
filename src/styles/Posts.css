@@ -1,0 +1,73 @@
+.post-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 30px;
+  border: 1px solid #fff;
+  width: 500px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.post-container h2 {
+  font-size: 3.3rem;
+  font-weight: 700;
+}
+
+.post-container p {
+  padding-bottom: 10px;
+}
+
+.post-container .comments-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-bottom: 15px;
+}
+
+.post-container .comments-container img {
+  width: 30px;
+  height: 30px;
+}
+
+.post-container .comments-container span {
+  margin-left: 10px;
+}
+
+.post-container .post-button {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+
+.post-container .post-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.failure-container h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: tomato;
+}
+/*# sourceMappingURL=Posts.css.map */
