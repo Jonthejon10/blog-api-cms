@@ -23,18 +23,19 @@ const Login = () => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        fetch('http://localhost:2000/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: user.username,
-                password: user.password,
-            }),
-		}).then(res => res.json())
-			.then(data => dispatch(setToken(data)))
-			.catch(err => console.log(err))
+        fetch('https://obscure-refuge-23971.herokuapp.com/api/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: user.username,
+				password: user.password,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => dispatch(setToken(data)))
+			.catch((err) => console.log(err))
     }
  	useEffect(() => {
 		if (token.status === 'success') {

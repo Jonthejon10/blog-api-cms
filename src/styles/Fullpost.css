@@ -2,7 +2,7 @@
   padding-top: 10px;
 }
 
-.fullpost-container button {
+.fullpost-container .styled-btn {
   padding: 10px;
   border-radius: 5px;
   background-color: transparent;
@@ -11,7 +11,7 @@
   border: 1px solid #fff;
 }
 
-.fullpost-container button:hover {
+.fullpost-container .styled-btn:hover {
   background-color: #fff;
   color: #000;
 }
@@ -31,6 +31,27 @@
 
 .fullpost-container .post-text {
   font-size: 2rem;
+}
+
+.fullpost-container .edit-post-btn {
+  background-color: transparent;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  width: 32px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+  transition: -webkit-transform .5s ease-in-out;
+  transition: transform .5s ease-in-out;
+  transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+  background-image: url("../images/edit.svg");
+  margin-top: 20px;
+}
+
+.fullpost-container .edit-post-btn:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 .fullpost-container form {
@@ -63,5 +84,60 @@
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.fullpost-container .comments-form {
+  padding-top: 70px;
+}
+
+.fullpost-container .post-comments-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: scroll;
+}
+
+.fullpost-container .post-comments-container .post-comment {
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.fullpost-container .post-comments-container .post-comment p {
+  font-size: 1rem;
+}
+
+.fullpost-container .post-comments-container .post-comment p:nth-of-type(1) {
+  font-size: 2.5rem;
+}
+
+.fullpost-container .post-comments-container .post-comment .comment-delete-btn {
+  background-image: url("../images/delete.svg");
+  background-color: transparent;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  margin-top: 10px;
+  width: 22px;
+  height: 26px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+  transition: -webkit-transform .5s ease-in-out;
+  transition: transform .5s ease-in-out;
+  transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+}
+
+.fullpost-container .post-comments-container .post-comment .comment-delete-btn:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 /*# sourceMappingURL=Fullpost.css.map */

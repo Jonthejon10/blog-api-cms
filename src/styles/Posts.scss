@@ -46,6 +46,42 @@
             color: #000;
         }
     }
+
+    .edit-buttons-container {
+        display: flex;
+        padding-top: 30px;
+        
+        .post-admin-btn {
+            background-color: transparent;
+            background-position: center;
+            background-size: cover;
+            border: none;
+            width: 32px;
+            height: 30px;
+            cursor: pointer;
+            transition: transform .5s ease-in-out;
+
+            &:hover {
+                transform: rotate(360deg);
+            }        
+        }
+
+        .visible-post-btn {
+            background-image: url('../images/eye.svg');
+            margin-left: 15px;
+        }
+
+        .delete-post-btn {
+            background-image: url('../images/delete.svg');
+            margin-left: 15px;
+            height: 33px;
+            width: 28px;
+        }
+    }
+}
+
+.post-container.hidden {
+    opacity: 0.3;
 }
 
 .failure-container {

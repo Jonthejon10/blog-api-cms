@@ -12,53 +12,54 @@ const App = () => {
 
 	const [posts, setPosts] = useState([])
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const res = await fetch('http://localhost:2000/api/posts')
-				const resJson = await res.json()
-				setPosts(resJson.posts)
-			} catch (error) {
-				console.error(error)
-			}
+	// Getting posts from backend
+	async function fetchData() {
+		try {
+			const res = await fetch(
+				'https://obscure-refuge-23971.herokuapp.com/api/posts'
+			)
+			const resJson = await res.json()
+			setPosts(resJson.posts)
+		} catch (error) {
+			console.error(error)
 		}
+	}
+	
+	useEffect(() => {
 		fetchData()
-	}, [])
+	}, [posts.length])
 
   return (
 		<div className='container'>
-			<BrowserRouter basename='/'>
+			<BrowserRouter>
 				<Navbar />
 
-				<Routes>
+			  <Routes>
+				  
 					<Route exact path='/blog-cms/' element={<Login />} />
-				</Routes>
 
-				<Routes>
 					<Route
 						exact
 						path='/blog-cms/posts'
-					  element={<Posts posts={ posts }/>}
+						element={
+							<Posts posts={posts} setPosts={setPosts} />
+						}
 					/>
-			  	</Routes>
 
-				<Routes>
 					<Route
 						exact
 						path='/blog-cms/posts/:id'
-					  element={<Fullpost/>}
+						element={<Fullpost posts={posts} setPosts={setPosts} />}
 					/>
-			  	</Routes>
 
-				<Routes>
 					<Route
 						exact
 						path='/blog-cms/new-post'
-						element={<Newpost/>}
+						element={<Newpost posts={posts} setPosts={setPosts} />}
 					/>
-			  	</Routes>
+				</Routes>
 
-			  <Footer />
+				<Footer />
 			</BrowserRouter>
 		</div>
   )

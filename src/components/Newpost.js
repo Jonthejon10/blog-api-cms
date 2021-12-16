@@ -3,11 +3,14 @@ import '../styles/Newpost.css'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-const Newpost = () => {
+const Newpost = ({ posts, setPosts }) => {
 	const navigate = useNavigate()
 
-    const [post, setPost] = useState({})
+	const [post, setPost] = useState({
+		comments: [],
+	})
 
+	// Getting login token from redux
 	const { token } = useSelector((state) => state.token)
 
 	const handleChange = (e) => {
@@ -17,24 +20,29 @@ const Newpost = () => {
 		})
 	}
 
-    const handleSubmit = event => {
-        event.preventDefault()
-        fetch('http://localhost:2000/api/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token.token
-            },
-            body: JSON.stringify({
-                author: 'Jonthejon10',
-                title: post.title,
-                text: post.text
-            })
-        })
-        navigate('/blog-cms/posts')
-    }
+	// Submitting new post to backend
+	const handleSubmit = async (event) => {
+		event.preventDefault()
 
-    return (
+		fetch('https://obscure-refuge-23971.herokuapp.com/api/posts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token.token,
+			},
+			body: JSON.stringify({
+				author: 'Jonthejon10',
+				title: post.title,
+				text: post.text,
+			}),
+		}).catch((err) => console.log(err))
+
+		setPosts([...posts, post])
+		setPost({ comments: [] })
+		navigate('/blog-cms/posts')
+	}
+
+	return (
 		<div className='content-container newpost-container'>
 			{token.status === 'success' && (
 				<form onSubmit={handleSubmit}>

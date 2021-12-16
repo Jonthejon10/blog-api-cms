@@ -65,6 +65,48 @@
   color: #000;
 }
 
+.post-container .edit-buttons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 30px;
+}
+
+.post-container .edit-buttons-container .post-admin-btn {
+  background-color: transparent;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  width: 32px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+  transition: -webkit-transform .5s ease-in-out;
+  transition: transform .5s ease-in-out;
+  transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+}
+
+.post-container .edit-buttons-container .post-admin-btn:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+.post-container .edit-buttons-container .visible-post-btn {
+  background-image: url("../images/eye.svg");
+  margin-left: 15px;
+}
+
+.post-container .edit-buttons-container .delete-post-btn {
+  background-image: url("../images/delete.svg");
+  margin-left: 15px;
+  height: 33px;
+  width: 28px;
+}
+
+.post-container.hidden {
+  opacity: 0.3;
+}
+
 .failure-container h2 {
   font-size: 3rem;
   font-weight: 700;

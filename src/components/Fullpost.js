@@ -2,59 +2,174 @@ import React, { useState, useEffect }from 'react'
 import '../styles/Fullpost.css'
 import { useParams, useNavigate } from 'react-router-dom'
 import formatDistance from 'date-fns/formatDistance'
+import { useSelector } from 'react-redux'
 
-const Fullpost = () => {
-    const navigate = useNavigate()
+const Fullpost = ({ posts, setPosts }) => {
+	const navigate = useNavigate()
 
-    const { id } = useParams()
+	// Post id for reference
+	const { id } = useParams()
 
-    const [post, setPost] = useState({})
+	const [post, setPost] = useState({})
 
-    const [comment, setComment] = useState({})
+	const [comment, setComment] = useState({})
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const res = await fetch(`http://localhost:2000/api/posts/${id}`)
-				const resJson = await res.json()
-				setPost(resJson.post)
-			} catch (error) {
-				console.error(error)
-			}
+	// Getting login token from redux
+	const { token } = useSelector((state) => state.token)
+
+	const [editPost, setEditPost] = useState(false)
+
+	async function fetchPostData() {
+		try {
+			const res = await fetch(
+				`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}`
+			)
+			const resJson = await res.json()
+			setPost(resJson.post)
+		} catch (error) {
+			console.error(error)
 		}
-		fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+	}
 
+	// Getting specific post data from db
+	useEffect(() => {
+		fetchPostData()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id, comment])
+
+	// Comment inputs
 	const handleChange = (e) => {
+
 		setComment({
 			...comment,
 			[e.target.name]: e.target.value,
 		})
 	}
+
+	// New comment submit
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		fetch(`http://localhost:2000/api/posts/${id}/comments`, {
-			method: 'POST',
+  		fetch(
+			`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}/comments`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					author: comment.author,
+					text: comment.text,
+					reference: id,
+				}),
+			}
+		).catch((err) => console.log(err))
+		const newArr = post.comments.push(comment)
+		setPost({ ...post, newArr })
+		setComment({})
+	}
+
+	// Comment delete
+	const handleDelete = (commentId) => {
+		fetch(`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}/comments/${commentId}`, {
+			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token.token,
 			},
 			body: JSON.stringify({
-				author: comment.author,
-                text: comment.text,
-                reference: id,
+				id: commentId,
+				post_id: id,
 			}),
 		}).catch((err) => console.log(err))
-    }
-    console.log(post.comments)
-    
-    return (
+		const filteredArr = post.comments.filter(x => x._id !== commentId)
+		setPost({...post, filteredArr})
+		setComment({})
+}
+
+	// Post edit inputs
+	const handleInputChange = (e) => {
+		setPost({
+			...post,
+			[e.target.name]: e.target.value,
+		})
+	}
+	
+	// Post edit submit to backend
+	const handlePostEdit = (e) => {
+		e.preventDefault()
+		setEditPost(false)
+		fetch(`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}/update`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token.token,
+			},
+			body: JSON.stringify({
+				author: post.author,
+				timestamp: post.timestamp,
+				title: post.title,
+				text: post.text,
+				comments: post.comments,
+				visible: post.visible,
+				refId: id,
+			}),
+		}).catch((err) => console.log(err))
+		setPosts([...posts, post])
+
+		setPosts(
+			[...posts].map((obj) => {
+				if (obj._id === post._id) {
+					return {
+						...obj,
+						title: post.title,
+						text: post.text,
+						author: post.author,
+					}
+				} else {
+					return obj
+				}
+			})
+		)
+	}
+
+
+	return (
 		<div className='content-container fullpost-container'>
-			<button onClick={() => navigate('/blog-cms/posts')}>Go back</button>
+			<button
+				className='styled-btn'
+				onClick={() => navigate('/blog-cms/posts')}>
+				Go back
+			</button>
 
 			<h1>{post.title}</h1>
-
+			{editPost && (
+				<form onSubmit={(e) => handlePostEdit(e)}>
+					<input
+						type='text'
+						name='title'
+						value={post.title}
+						onChange={(e) => handleInputChange(e)}
+					/>
+					<button type='submit' className='styled-btn'>
+						Submit
+					</button>
+				</form>
+			)}
 			<h3>by {post.author}</h3>
+
+			{editPost && (
+				<form onSubmit={handlePostEdit}>
+					<input
+						type='text'
+						name='author'
+						value={post.author}
+						onChange={(e) => handleInputChange(e)}
+					/>
+					<button type='submit' className='styled-btn'>
+						Submit
+					</button>
+				</form>
+			)}
 
 			{post.timestamp && (
 				<p>
@@ -64,7 +179,27 @@ const Fullpost = () => {
 
 			<p className='post-text'>{post.text}</p>
 
-			<form onSubmit={handleSubmit}>
+			{editPost && (
+				<form onSubmit={handlePostEdit}>
+					<textarea
+						type='text'
+						name='text'
+						value={post.text}
+						onChange={(e) => handleInputChange(e)}
+					/>
+					<button type='submit' className='styled-btn'>
+						Submit
+					</button>
+				</form>
+			)}
+
+			<button
+				type='button'
+				className='edit-post-btn'
+				onClick={() => setEditPost(!editPost)}
+			/>
+
+			<form className='comments-form'onSubmit={handleSubmit}>
 				<p>Got something to say ? </p>
 				<input
 					type='text'
@@ -76,10 +211,12 @@ const Fullpost = () => {
 					type='text'
 					required={true}
 					name='text'
-                    onChange={handleChange}
-                    rows='6'
+					onChange={handleChange}
+					rows='6'
 					placeholder='Enter your comment'></textarea>
-				<button type='submit'>Submit</button>
+				<button type='submit' className='styled-btn'>
+					Submit
+				</button>
 			</form>
 
 			<div className='post-comments-container'>
@@ -87,9 +224,25 @@ const Fullpost = () => {
 					post.comments.map((item, index) => {
 						return (
 							<div key={index} className='post-comment'>
-								<p>{item.author}</p>
-								<p>{item.timestamp}</p>
 								<p>{item.text}</p>
+								<p>by {item.author}</p>
+								{item.timestamp &&
+									<p>
+										{formatDistance(
+											new Date(item.timestamp),
+											new Date()
+											)}{' '}
+										ago
+									</p>
+								}
+
+								{token.status === 'success' && (
+									<button
+										type='button'
+										className='comment-delete-btn'
+										onClick={() => handleDelete(item._id)}
+									/>
+								)}
 							</div>
 						)
 					})}
