@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/blog-api-cms/static/css/main.cd669854.chunk.css",
+    "main.js": "/blog-api-cms/static/js/main.96f3e9fb.chunk.js",
+    "main.js.map": "/blog-api-cms/static/js/main.96f3e9fb.chunk.js.map",
+    "runtime-main.js": "/blog-api-cms/static/js/runtime-main.7903f3af.js",
+    "runtime-main.js.map": "/blog-api-cms/static/js/runtime-main.7903f3af.js.map",
+    "static/js/2.78284afe.chunk.js": "/blog-api-cms/static/js/2.78284afe.chunk.js",
+    "static/js/2.78284afe.chunk.js.map": "/blog-api-cms/static/js/2.78284afe.chunk.js.map",
+    "index.html": "/blog-api-cms/index.html",
+    "static/css/main.cd669854.chunk.css.map": "/blog-api-cms/static/css/main.cd669854.chunk.css.map",
+    "static/js/2.78284afe.chunk.js.LICENSE.txt": "/blog-api-cms/static/js/2.78284afe.chunk.js.LICENSE.txt",
+    "static/media/comments.svg": "/blog-api-cms/static/media/comments.475722ba.svg",
+    "static/media/Fullpost.css": "/blog-api-cms/static/media/edit.8df08764.svg",
+    "static/media/Posts.css": "/blog-api-cms/static/media/eye.60c88f9a.svg",
+    "static/media/Footer.css": "/blog-api-cms/static/media/github-icon.a9182f20.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7903f3af.js",
+    "static/js/2.78284afe.chunk.js",
+    "static/css/main.cd669854.chunk.css",
+    "static/js/main.96f3e9fb.chunk.js"
+  ]
+}
