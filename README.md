@@ -2,7 +2,7 @@
 
 ## Made with React, Redux toolkit, SCSS.
 
-<a href='https://jonthejon10.github.io/blog-api-cms/'>Live preview</a>
+<a href='https://jonthejon10.github.io/blog-cms/'>Live preview</a>
 
 Check out the backend: https://github.com/Jonthejon10/blog-api-backend
 
