@@ -1,6 +1,6 @@
 {
   "name": "blog-api-cms",
-  "homepage": "https://jonthejon10.github.io/blog-api-cms",
+  "homepage": "https://jonthejon10.github.io/blog-cms",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
