@@ -18,14 +18,15 @@ const Fullpost = ({ posts, setPosts }) => {
 	const { token } = useSelector((state) => state.token)
 
 	const [editPost, setEditPost] = useState(false)
-
+	
 	async function fetchPostData() {
+		console.log('fetching')
 		try {
 			const res = await fetch(
 				`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}`
 			)
 			const resJson = await res.json()
-			setPost(resJson.post)
+			return setPost(resJson.post)
 		} catch (error) {
 			console.error(error)
 		}
@@ -34,8 +35,14 @@ const Fullpost = ({ posts, setPosts }) => {
 	// Getting specific post data from db
 	useEffect(() => {
 		fetchPostData()
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, comment])
+		
+		const interval = setInterval(() => {
+			fetchPostData()
+		}, 10000)
+
+		return () => clearInterval (interval)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id])
 
 	// Comment inputs
 	const handleChange = (e) => {
@@ -47,9 +54,12 @@ const Fullpost = ({ posts, setPosts }) => {
 	}
 
 	// New comment submit
+
 	const handleSubmit = (event) => {
+
 		event.preventDefault()
-  		fetch(
+		
+		fetch(
 			`https://obscure-refuge-23971.herokuapp.com/api/posts/${id}/comments`,
 			{
 				method: 'POST',
@@ -63,8 +73,10 @@ const Fullpost = ({ posts, setPosts }) => {
 				}),
 			}
 		).catch((err) => console.log(err))
-		const newArr = post.comments.push(comment)
-		setPost({ ...post, newArr })
+ 		const newArr = [...post.comments]
+		newArr.push(comment)
+		setPost({...post, comments:[...newArr]})
+ 		
 		setComment({})
 	}
 
@@ -81,10 +93,13 @@ const Fullpost = ({ posts, setPosts }) => {
 				post_id: id,
 			}),
 		}).catch((err) => console.log(err))
-		const filteredArr = post.comments.filter(x => x._id !== commentId)
-		setPost({...post, filteredArr})
+		
+		const newArr = post.comments.filter(x => x._id !== commentId)
+		
+		setPost({ ...post, comments:[...newArr] })
+		
 		setComment({})
-}
+	}
 
 	// Post edit inputs
 	const handleInputChange = (e) => {
